@@ -1,12 +1,12 @@
 #!/bin/sh
 set -e
-: "${OUTFILE=$(basename -s .cr $1)}"
+: "${OUTFILE=$(basename -s .cr "$1")}"
 if [ -z "$WORKDIR" ]; then
 	WORKDIR="$(mktemp -d -t cerc.XXXXXXXXXX)"
-	trap "rm -rf \"$WORKDIR\"" EXIT
+	trap 'rm -rf $WORKDIR' EXIT
 fi
 for arg; do
-	base="$(basename -s .cr $arg)"
+	base="$(basename -s .cr "$arg")"
 	cerc "$arg" > "$WORKDIR/$base.ssa"
 	qbe "$WORKDIR/$base.ssa" -o "$WORKDIR/$base.as"
 	as -g "$WORKDIR/$base.as" -o "$WORKDIR/$base.o"
