@@ -127,7 +127,7 @@ func freeTree(tree *union maybeNode) {
 }
 
 func main() int32 pub {
-	var buffer []uint8 = [0] uint8 {};
+	var buffer []uint8 = [0!uint] uint8 {};
 	var tree union maybeNode = struct empty {} as union maybeNode;
 
 	for ; readLine(&buffer); {

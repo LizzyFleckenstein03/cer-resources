@@ -6,7 +6,7 @@ func ptrof(s string) uint pub {
 	return (s as struct stringRepr).ptr;
 }
 
-struct panicInfo pub {
+struct panic_info pub {
 	filename string,
 	line uint64,
 	column uint64,
@@ -14,7 +14,7 @@ struct panicInfo pub {
 	a0 uint64,
 	a1 uint64,
 }
-func handlePanic(inf struct panicInfo) pub {
+func handle_panic(inf struct panic_info) pub {
 	printf(ptrof("panic in %.*s:\0"), lenof(inf.filename), ptrof(inf.filename));
 	printf(ptrof("%llu:%llu: \0"), inf.line as uint, inf.column as uint);
 
