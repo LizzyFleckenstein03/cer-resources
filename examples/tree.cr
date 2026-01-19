@@ -47,9 +47,7 @@ func freeString(s string) {
 
 func compareString(a string, b string) int {
 	for var i uint = 0!uint; i < lenof a; i++ {
-		if i >= lenof b {
-			return ordGt;
-		} else if a[i] > b[i] {
+		if i >= lenof b || a[i] > b[i] {
 			return ordGt;
 		} else if (a[i] < b[i]) {
 			return ordLt;
@@ -108,20 +106,20 @@ func insert(tree *union maybeNode, content string) {
 	}
 }
 
-func printTree(tree *union maybeNode) {
-	if *tree is *struct node {
-		var n *struct node = *tree as *struct node;
-		printTree(&(*n).left);
+func printTree(tree union maybeNode) {
+	if tree is *struct node {
+		var n *struct node = tree as *struct node;
+		printTree((*n).left);
 		printf(ptrof("%.*s\n\0"), lenof (*n).content, ptrof((*n).content));
-		printTree(&(*n).right);
+		printTree((*n).right);
 	}
 }
 
-func freeTree(tree *union maybeNode) {
-	if *tree is *struct node {
-		var n *struct node = *tree as *struct node;
-		freeTree(&(*n).left);
-		freeTree(&(*n).right);
+func freeTree(tree union maybeNode) {
+	if tree is *struct node {
+		var n *struct node = tree as *struct node;
+		freeTree((*n).left);
+		freeTree((*n).right);
 		freeNode(n);
 	}
 }
@@ -131,7 +129,7 @@ func main() int32 pub {
 	var tree union maybeNode = struct empty {} as union maybeNode;
 
 	for ; readLine(&buffer); {
-		if lenof buffer > 0!uint && buffer[lenof buffer-1!uint] == 10!uint8 {
+		if lenof buffer > 0!uint && (buffer[lenof buffer-1!uint] as uint32) as rune == '\n' {
 			buffer = buffer[0!uint : (lenof buffer-1!uint)];
 		}
 
@@ -141,8 +139,8 @@ func main() int32 pub {
 		}
 	}
 
-	printTree(&tree);
-	freeTree(&tree);
+	printTree(tree);
+	freeTree(tree);
 	freeReadBuffer(buffer);
 
 	return 0!int32;
